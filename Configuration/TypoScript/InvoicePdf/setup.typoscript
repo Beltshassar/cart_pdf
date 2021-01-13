@@ -2,6 +2,7 @@ plugin.tx_cartpdf {
     invoicePdf {
         storageRepository = {$plugin.tx_cartpdf.invoicePdf.storageRepository}
         storageFolder = {$plugin.tx_cartpdf.invoicePdf.storageFolder}
+        useFilenameSuffix = 1
 
         debug = 0
 

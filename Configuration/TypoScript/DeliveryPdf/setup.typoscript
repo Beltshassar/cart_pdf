@@ -2,6 +2,7 @@ plugin.tx_cartpdf {
     deliveryPdf {
         storageRepository = {$plugin.tx_cartpdf.deliveryPdf.storageRepository}
         storageFolder = {$plugin.tx_cartpdf.deliveryPdf.storageFolder}
+        useFilenameSuffix = 1
 
         debug = 0
 

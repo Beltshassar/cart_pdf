@@ -60,12 +60,12 @@ class PdfService
      *
      * @var string
      */
-    protected $pdf_path = 'typo3temp/cart_pdf/';
+    protected $pdf_path = '/var/tmp/';
 
     /**
      * @var string
      */
-    protected $pdf_filename = 'test';
+    protected $pdf_filename = 'tempfile.pdf';
 
     /**
      * @var int
@@ -116,7 +116,10 @@ class PdfService
     {
         $this->setPluginSettings($pdfType);
 
-        $pdfFilename = '/tmp/tempfile.pdf';
+        //$pdfFilename = '/tmp/tempfile.pdf';
+        
+        //change of pdf location
+        $pdfFilename = $this->pdf_path.$this->pdf_filename;
 
         $this->renderPdf($pdfType, $orderItem);
 
@@ -125,7 +128,14 @@ class PdfService
         );
 
         $getNumber = 'get' . ucfirst($pdfType) . 'Number';
-        $newFileName = $orderItem->$getNumber() . '.pdf';
+
+        // $newFileName = $orderItem->$getNumber() . '.pdf';
+
+        $better_token = md5(uniqid(mt_rand(), true));
+        if ($this->pdfSettings['useFilenameSuffix'] == 1) {
+            $suffix = '_' . $better_token;
+        }
+        $newFileName = $orderItem->$getNumber() . $suffix . '.pdf';
 
         if (file_exists($pdfFilename)) {
             /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $storage */
@@ -246,7 +256,10 @@ class PdfService
             }
         }
 
-        $pdfFilename = '/tmp/tempfile.pdf';
+        //$pdfFilename = '/tmp/tempfile.pdf';
+        //change of pdf location
+        $pdfFilename = $this->pdf_path.$this->pdf_filename;
+
 
         $this->pdf->Output($pdfFilename, 'F');
     }
